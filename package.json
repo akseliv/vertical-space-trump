@@ -1,0 +1,25 @@
+{
+  "name": "vertical-space-trump",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "pandatool": "^2.0.4"
+  },
+  "devDependencies": {
+    "pandatool": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akseliv/vertical-space-trump.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akseliv/vertical-space-trump/issues"
+  },
+  "homepage": "https://github.com/akseliv/vertical-space-trump#readme"
+}

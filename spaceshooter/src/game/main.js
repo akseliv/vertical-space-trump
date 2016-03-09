@@ -9,7 +9,12 @@ game.module(
 
 game.createScene('Main', {
 	animationSpeed: 0.1,
-
+    fooObject: { 
+        prop: 'bark' ,
+            say: function(){
+                console.log(this.prop);
+            }
+        },
     init: function() {
     	this.world = new game.World(0, 0);
 
@@ -19,7 +24,7 @@ game.createScene('Main', {
 
     	var bg = new game.TilingSprite('desert-backgorund-looped.png');
     	bg.speed.y = 80;
-    	bg.addTo(this.mainContainer);
+    	//bg.addTo(this.mainContainer);
     	this.addObject(bg);
 
     	this.player = new game.Player();
@@ -27,10 +32,14 @@ game.createScene('Main', {
         // Spawn new enemy every second
     	this.addTimer(1000, this.spawnEnemy.bind(this), true);
     	this.spawnEnemy();
+        
+        
     },
 
     spawnEnemy: function() {
     	var enemy = new game.Enemy();
+        Object.assign(enemy, this.fooObject)
+        enemy.say();
     },
 
     keydown: function(key) {

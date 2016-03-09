@@ -24,9 +24,9 @@ game.createScene('Main', {
     	this.mainContainer.scale.set(4, 4);
 
     	var bg = new game.TilingSprite('desert-backgorund-looped.png');
-    	bg.speed.y = 80;
+    	bg.speed.y = 280;
     	bg.addTo(this.mainContainer);
-    	this.addObject(bg);
+    	//this.addObject(bg);
 
     	this.player = new game.Player();
 
@@ -40,7 +40,10 @@ game.createScene('Main', {
     spawnEnemy: function() {
         var m = [game.BasicMovement,game.BasicMovement2]
     	var enemy = new game.Enemy();
-        Object.assign(enemy, m[_.random(0, 1)]);
+        _.merge(
+            enemy, 
+            m[_.random(0, m.length-1)]
+        );
         enemy.init();
     },
 

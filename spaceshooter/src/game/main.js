@@ -30,14 +30,12 @@ game.createScene('Main', {
 
     	this.player = new game.Player();
 
-        // Spawn new enemy every second
-    	this.addTimer(1000, this.spawnEnemy.bind(this), true);
-    	this.spawnEnemy();
-        
-        
+       
+        this.startWave();
     },
 
     spawnEnemy: function() {
+        console.timeEnd('foo')
         var m = [game.BasicMovement,game.BasicMovement2]
     	var enemy = new game.Enemy();
         _.merge(
@@ -45,6 +43,19 @@ game.createScene('Main', {
             m[_.random(0, m.length-1)]
         );
         enemy.init();
+        console.time('foo')
+    },
+    
+    startWave: function() {
+        console.log('started wave'); 
+        this.addTimer(5000,this.stopWave.bind(this));        
+        this.enemyTimer = this.addTimer(250, this.spawnEnemy.bind(this), true);
+    },
+    
+    stopWave: function() {
+        console.log('stopped wave');
+        if(this.enemyTimer) this.removeTimer(this.enemyTimer);
+        this.addTimer(5000,this.startWave.bind(this));        
     },
 
     keydown: function(key) {

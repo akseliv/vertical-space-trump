@@ -122,6 +122,7 @@ game.createClass('Bullet', 'Entity', {
 	},
 
 	collide: function(body) {
+        console.log(body);
 		this.remove();
 		// Kill Enemy when colliding with it
 		body.parent.kill();
@@ -165,7 +166,8 @@ game.createClass('Enemy', 'Entity', {
 	},
     
     move: function() {
-        
+        //this function is not called
+        console.log("original move");
     }
 });
 

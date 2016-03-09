@@ -3,7 +3,8 @@ game.module(
 )
 .require(
     'game.assets',
-    'game.objects'
+    'game.objects',
+    'game.movement-components'
 )
 .body(function() {
 
@@ -24,7 +25,7 @@ game.createScene('Main', {
 
     	var bg = new game.TilingSprite('desert-backgorund-looped.png');
     	bg.speed.y = 80;
-    	//bg.addTo(this.mainContainer);
+    	bg.addTo(this.mainContainer);
     	this.addObject(bg);
 
     	this.player = new game.Player();
@@ -37,9 +38,10 @@ game.createScene('Main', {
     },
 
     spawnEnemy: function() {
+        var m = [game.BasicMovement,game.BasicMovement2]
     	var enemy = new game.Enemy();
-        Object.assign(enemy, this.fooObject)
-        enemy.say();
+        Object.assign(enemy, m[_.random(0, 1)]);
+        enemy.init();
     },
 
     keydown: function(key) {

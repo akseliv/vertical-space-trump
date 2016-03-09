@@ -150,7 +150,7 @@ game.createClass('Enemy', 'Entity', {
 	},
 
 	ready: function() {
-		this.body.velocity.y = this.speed;
+        console.log('entity ready');
 	},
 
 	kill: function() {
@@ -159,9 +159,14 @@ game.createClass('Enemy', 'Entity', {
 	},
 
 	onUpdate: function() {
+        this.move();
 		// Remove when out of screen
 		if (this.sprite.position.y - this.sprite.height / 2 > game.system.height / 4) this.remove();
-	}
+	},
+    
+    move: function() {
+        
+    }
 });
 
 game.createClass('Explosion', {

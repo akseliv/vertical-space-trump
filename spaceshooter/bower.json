@@ -1,0 +1,22 @@
+{
+  "name": "spaceshooter",
+  "homepage": "https://github.com/akseliv/vertical-space-trump",
+  "authors": [
+    "akselivsk <akseli.virtanen@sek.fi>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "-",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~4.6.1"
+  }
+}

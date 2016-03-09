@@ -5,6 +5,7 @@ pandaConfig = {
     system: {
         width: 1920,
         height: 1080,
-        scaleMode: 'nearest'
+        scaleMode: 'nearest',
+        webGL: true
     }
 };

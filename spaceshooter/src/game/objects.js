@@ -109,6 +109,7 @@ game.createClass('Bullet', 'Entity', {
 
 	initSprite: function(x, y) {
 		this.sprite = new game.SpriteSheet('laser-bolts.png', 5, 13).anim();
+        this.sprite.filter = new game.PIXI.BlurFilter(10);
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.position.set(x, y);
@@ -117,7 +118,7 @@ game.createClass('Bullet', 'Entity', {
 	},
 
 	ready: function() {
-		this.body.velocity.y = -700;
+		this.body.velocity.y = -1400;
 		this.body.collide = this.collide.bind(this);
 	},
 
@@ -143,6 +144,7 @@ game.createClass('Enemy', 'Entity', {
 		var x = Math.random(16, game.system.width / 4 - 32);
 
 		this.sprite = new game.SpriteSheet('enemy-small.png', 16, 16).anim();
+        this.sprite.blendMode = 2;
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, -this.sprite.height / 2);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
@@ -174,7 +176,8 @@ game.createClass('Enemy', 'Entity', {
 game.createClass('Explosion', {
 	init: function(x, y) {
 		this.sprite = new game.SpriteSheet('explosion.png', 16, 16).anim();
-		this.sprite.animationSpeed = game.scene.animationSpeed * 2;
+        this.sprite.blendMode = 2;
+		this.sprite.animationSpeed = game.scene.animationSpeed * 4;
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, y),
 		this.sprite.addTo(game.scene.mainContainer);

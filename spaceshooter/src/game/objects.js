@@ -109,7 +109,7 @@ game.createClass('Bullet', 'Entity', {
 
 	initSprite: function(x, y) {
 		this.sprite = new game.SpriteSheet('laser-bolts.png', 5, 13).anim();
-        this.sprite.filter = new game.PIXI.BlurFilter(10);
+        this.sprite.filters = [new game.PIXI.BlurFilter(10)];
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.position.set(x, y);

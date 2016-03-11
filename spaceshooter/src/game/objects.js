@@ -155,12 +155,10 @@ game.createClass('Enemy', 'Entity', {
 		this.sprite.addTo(game.scene.mainContainer);
         
 	},
-    
-    init: function() {
-        this.mergeRandomBehaviour();  
-    },
+   
 
 	ready: function() {
+        this.mergeRandomBehaviour();
         console.log('entity ready'); 
 
 	},
@@ -185,6 +183,7 @@ game.createClass('Enemy', 'Entity', {
             this, 
             game.movementComponents[this.cycle.next().value]
         );
+        this.init();
 
 
         //this.sprite.tint = game.PIXI.rgb2hex([_.random(0,255),_.random(0,255),_.random(0,255)]);

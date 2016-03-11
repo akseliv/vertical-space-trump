@@ -138,6 +138,9 @@ game.createClass('Bullet', 'Entity', {
 game.createClass('Enemy', 'Entity', {
 	speed: 400,
 	collisionGroup: 1,
+    moves: [],
+    cycle: _(_.shuffle(_.range(2))),
+    currentMove: false,
 
 	initSprite: function() {
 		// Random start position
@@ -150,10 +153,16 @@ game.createClass('Enemy', 'Entity', {
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.play();
 		this.sprite.addTo(game.scene.mainContainer);
+        
 	},
+    
+    init: function() {
+        this.mergeRandomBehaviour();  
+    },
 
 	ready: function() {
-        console.log('entity ready');
+        console.log('entity ready'); 
+
 	},
 
 	kill: function() {
@@ -168,8 +177,18 @@ game.createClass('Enemy', 'Entity', {
 	},
     
     move: function() {
-        //this function is not called
-        console.log("original move");
+
+    },
+    
+    mergeRandomBehaviour: function(){
+        _.merge(
+            this, 
+            game.movementComponents[this.cycle.next().value]
+        );
+
+
+        //this.sprite.tint = game.PIXI.rgb2hex([_.random(0,255),_.random(0,255),_.random(0,255)]);
+        
     }
 });
 

@@ -16,6 +16,7 @@ game.createScene('Main', {
                 console.log(this.prop);
             }
         },
+        
     init: function() {
     	this.world = new game.World(0, 0);
 
@@ -35,15 +36,9 @@ game.createScene('Main', {
     },
 
     spawnEnemy: function() {
-        console.timeEnd('foo')
-        var m = [game.BasicMovement,game.BasicMovement2]
+
     	var enemy = new game.Enemy();
-        _.merge(
-            enemy, 
-            m[_.random(0, m.length-1)]
-        );
-        enemy.init();
-        console.time('foo')
+        console.log(enemy.ready);
     },
     
     startWave: function() {
@@ -61,6 +56,7 @@ game.createScene('Main', {
     keydown: function(key) {
     	if (key === 'X') this.player.shoot();
     }
+    
 });
 
 });

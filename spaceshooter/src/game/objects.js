@@ -153,21 +153,26 @@ game.createClass('Enemy', 'Entity', {
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.play();
 		this.sprite.addTo(game.scene.mainContainer);
+        var self = this;
+        game.sandbox.on("shoot", function(){
+            if (self.flinch) self.flinch();
+        });
         
 	},
    
 
 	ready: function() {
-        this.cycle = _.shuffle(_.range(3));
-        console.log(this.cycle);
         this.body.velocity.y = this.speed;
+        console.log('entity ready'); 
+
+	},
+    
+    postReady: function() {
+        console.log(this.cycle);
         this.mergeRandomBehaviour( this.cycle[0] );
         game.scene.addTimer(1000, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
         game.scene.addTimer(2000, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
-        console.log('entity ready'); 
-        
-
-	},
+    },
 
 	kill: function() {
 		var explosion = new game.Explosion(this.sprite.position.x, this.sprite.position.y);
@@ -184,6 +189,10 @@ game.createClass('Enemy', 'Entity', {
 
     },
     
+    flinch: function() {
+        console.log("flinched");
+    },
+    
     mergeRandomBehaviour: function(cycle){
         _.merge(
             this, 
@@ -192,7 +201,7 @@ game.createClass('Enemy', 'Entity', {
         this.init();
 
 
-        //this.sprite.tint = game.PIXI.rgb2hex([_.random(0,255),_.random(0,255),_.random(0,255)]);
+      
         
     }
 });

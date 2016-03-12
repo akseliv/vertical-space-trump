@@ -18,6 +18,7 @@ game.createScene('Main', {
         },
         
     init: function() {
+       game.sandbox = new Events();
     	this.world = new game.World(0, 0);
 
         // Create scaled container for pixel art
@@ -38,14 +39,16 @@ game.createScene('Main', {
     spawnEnemy: function(c) {
 
     	var enemy = new game.Enemy();
-        enemy.cycle = c;
+        enemy.cycle = game.scene.cycle;
+        console.log("foo",c);
+        enemy.postReady();
     },
     
     startWave: function() {
         console.log('started wave'); 
-        var cycle = _.shuffle(_.range(3));
+        game.scene.cycle = _.shuffle(_.range(4));
         this.addTimer(5000,this.stopWave.bind(this));
-        this.spawnEnemy(cycle);
+        this.spawnEnemy();
         this.enemyTimer = this.addTimer(1000, this.spawnEnemy.bind(this), true)
     },
     
@@ -57,6 +60,7 @@ game.createScene('Main', {
 
     keydown: function(key) {
     	if (key === 'X') this.player.shoot();
+        game.sandbox.emit("shoot");
     }
     
 });

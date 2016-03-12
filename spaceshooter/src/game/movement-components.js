@@ -7,7 +7,7 @@ game.module(
         },       
         move: function move() {
             this.body.velocity.y = this.speed;
-            this.body.velocity.x = Math.sin((this.body.position.y/200)*2*Math.PI/2)*500;
+            this.body.velocity.x = Math.sin((this.body.position.y/400)*2*Math.PI/2)*500;
             
         },
 
@@ -19,7 +19,7 @@ game.module(
     game.BasicMovement2 = {
         init: function init() {
             this.body.velocity.x = 0;
-            this.body.velocity.y = this.speed*2;
+            this.body.velocity.y = this.speed;
         },       
         move: function move() {
   
@@ -36,7 +36,7 @@ game.module(
             this.body.velocity.x = _.shuffle([-200,200])[0];
         },       
         move: function move() {
-            this.sprite.tint = game.PIXI.rgb2hex([_.random(0,255),_.random(0,255),_.random(0,255)]);
+            
         },
 
         bark: function bark() {
@@ -44,6 +44,33 @@ game.module(
         }
     }
     
-    game.movementComponents = [game.BasicMovement,game.BasicMovement2,game.BasicMovement3];
+    game.BasicMovement4 = {
+        init: function init() {
+
+            this.body.velocity.y = 0;
+            this.body.velocity.x = -400;
+            game.scene.addTimer(250, 
+                    this.bark.bind(this)
+            );
+            game.scene.addTimer(500, 
+                    this.bark2.bind(this)
+            );
+        },       
+        move: function move() {
+            
+        },
+
+        bark: function bark() {
+
+                this.body.velocity.x = 0; 
+                this.body.velocity.y = -400; 
+        },
+        bark2: function bark2() {
+                this.body.velocity.x = 0; 
+                this.body.velocity.y = 400; 
+        }
+    }
+    
+    game.movementComponents = [game.BasicMovement,game.BasicMovement2,game.BasicMovement3,game.BasicMovement4];
 
 });

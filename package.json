@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "happens": "^0.6.0",
     "pandatool": "^2.0.4"
   },
   "devDependencies": {

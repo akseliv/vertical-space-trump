@@ -17,6 +17,8 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~4.6.1"
+    "lodash": "~4.6.1",
+    "happens": "~0.6.0",
+    "minivents": "minivents-cuzzo#~2.0.1"
   }
 }

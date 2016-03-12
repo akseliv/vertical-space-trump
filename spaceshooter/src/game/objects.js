@@ -139,7 +139,7 @@ game.createClass('Enemy', 'Entity', {
 	speed: 400,
 	collisionGroup: 1,
     moves: [],
-    cycle: _(_.shuffle(_.range(2))),
+    cycle: false,
     currentMove: false,
 
 	initSprite: function() {
@@ -158,8 +158,14 @@ game.createClass('Enemy', 'Entity', {
    
 
 	ready: function() {
-        this.mergeRandomBehaviour();
+        this.cycle = _.shuffle(_.range(3));
+        console.log(this.cycle);
+        this.body.velocity.y = this.speed;
+        this.mergeRandomBehaviour( this.cycle[0] );
+        game.scene.addTimer(1000, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
+        game.scene.addTimer(2000, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
         console.log('entity ready'); 
+        
 
 	},
 
@@ -178,10 +184,10 @@ game.createClass('Enemy', 'Entity', {
 
     },
     
-    mergeRandomBehaviour: function(){
+    mergeRandomBehaviour: function(cycle){
         _.merge(
             this, 
-            game.movementComponents[this.cycle.next().value]
+            game.movementComponents[cycle]
         );
         this.init();
 

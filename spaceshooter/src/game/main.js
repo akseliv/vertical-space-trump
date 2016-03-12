@@ -35,16 +35,18 @@ game.createScene('Main', {
         this.startWave();
     },
 
-    spawnEnemy: function() {
+    spawnEnemy: function(c) {
 
     	var enemy = new game.Enemy();
-        console.log(enemy.ready);
+        enemy.cycle = c;
     },
     
     startWave: function() {
         console.log('started wave'); 
-        this.addTimer(5000,this.stopWave.bind(this));        
-        this.enemyTimer = this.addTimer(250, this.spawnEnemy.bind(this), true);
+        var cycle = _.shuffle(_.range(3));
+        this.addTimer(5000,this.stopWave.bind(this));
+        this.spawnEnemy(cycle);
+        this.enemyTimer = this.addTimer(1000, this.spawnEnemy.bind(this), true)
     },
     
     stopWave: function() {

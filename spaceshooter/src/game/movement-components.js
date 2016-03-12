@@ -4,9 +4,10 @@ game.module(
 .body(function() {
     game.BasicMovement = {
         init: function init() {
-            this.body.velocity.y = this.speed;
         },       
         move: function move() {
+            this.body.velocity.y = this.speed;
+            this.body.velocity.x = Math.sin((this.body.position.y/200)*2*Math.PI/2)*500;
             
         },
 
@@ -17,8 +18,8 @@ game.module(
     
     game.BasicMovement2 = {
         init: function init() {
-            this.body.velocity.y = this.speed*1.5;
-            this.body.velocity.x = _.random(-500, 500);
+            this.body.velocity.x = 0;
+            this.body.velocity.y = this.speed*2;
         },       
         move: function move() {
   
@@ -31,11 +32,11 @@ game.module(
     
     game.BasicMovement3 = {
         init: function init() {
-            this.body.velocity.y = _.random(-200,200);
-            this.body.velocity.x = _.random(-500, 500);
+            this.body.velocity.y = 0;
+            this.body.velocity.x = _.shuffle([-200,200])[0];
         },       
         move: function move() {
-  
+            this.sprite.tint = game.PIXI.rgb2hex([_.random(0,255),_.random(0,255),_.random(0,255)]);
         },
 
         bark: function bark() {

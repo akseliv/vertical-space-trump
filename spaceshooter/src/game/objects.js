@@ -20,6 +20,7 @@ game.createClass('Entity', {
 		this.sprite.remove();
 		this.body.remove();
 	},
+    
 
 	initSprite: function() {},
 
@@ -111,7 +112,7 @@ game.createClass('Player', 'Entity', {
 });
 
 game.createClass('Bullet', 'Entity', {
-	collisionGroup: 0,
+	collisionGroup: 2,
 	collideAgainst: 1,
 
 	initSprite: function(x, y) {
@@ -138,6 +139,17 @@ game.createClass('Bullet', 'Entity', {
 	onUpdate: function() {
 		// Remove when out of screen
 		if (this.sprite.position.y + this.sprite.height / 2 < 0) this.remove();
+        if (this.sprite.position.y + this.sprite.height / 2 > game.system.height) this.remove();
+	}
+});
+
+game.createClass('EnemyBullet', 'Bullet', {
+	collisionGroup: 3,
+	collideAgainst: 0,
+
+	ready: function() {
+		this.body.velocity.y = 700;
+		this.body.collide = this.collide.bind(this);
 	}
 });
 
@@ -176,11 +188,13 @@ game.createClass('Enemy', 'Entity', {
     postReady: function() {
         console.log(this.cycle);
         this.mergeRandomBehaviour( this.cycle[0] );
-        game.scene.addTimer(1500, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
-        game.scene.addTimer(2500, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
+        game.scene.addTimer(1750, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
+        game.scene.addTimer(2750, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
+        this.shootTimer = game.scene.addTimer(2000, this.shoot.bind(this),true);
     },
 
 	kill: function() {
+        game.scene.removeTimer(this.shootTimer);
 		var explosion = new game.Explosion(this.sprite.position.x, this.sprite.position.y);
 		this.remove();
 	},
@@ -188,7 +202,7 @@ game.createClass('Enemy', 'Entity', {
 	onUpdate: function() {
         this.move();
 		// Remove when out of screen
-		if (this.sprite.position.y - this.sprite.height / 2 > game.system.height / 4) this.remove();
+		if (this.sprite.position.y - this.sprite.height / 2 > game.system.height / 4) this.kill();
 	},
     
     move: function() {
@@ -197,6 +211,11 @@ game.createClass('Enemy', 'Entity', {
     
     flinch: function() {
         console.log("flinched");
+    },
+    
+    shoot: function() {
+        console.log('shoot');
+        var bullet = new game.EnemyBullet(this.sprite.position.x, this.sprite.position.y);
     },
     
     mergeRandomBehaviour: function(cycle){

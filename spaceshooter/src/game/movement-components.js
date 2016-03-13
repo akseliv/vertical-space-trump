@@ -71,6 +71,20 @@ game.module(
         }
     }
     
-    game.movementComponents = [game.BasicMovement,game.BasicMovement2,game.BasicMovement3,game.BasicMovement4];
+    game.BasicMovement5 = {
+        init: function init() {
+
+
+        },       
+        move: function move() {
+            if(this.body.position.x < game.scene.player.body.position.x){
+                this.body.velocity.x = 400;
+            }else{
+                this.body.velocity.x = -400;
+            }
+        }
+    }
+    
+    game.movementComponents = [game.BasicMovement,game.BasicMovement2,game.BasicMovement3,game.BasicMovement4,game.BasicMovement5];
 
 });

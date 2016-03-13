@@ -95,11 +95,18 @@ game.createClass('Player', 'Entity', {
     	// Prevent from going out of screen
     	if (this.body.position.x > game.system.width) this.body.position.x = game.system.width;
     	if (this.body.position.x < 0) this.body.position.x = 0;
+        
+        if (this.body.position.y > game.system.height) this.body.position.y = game.system.height;
+    	if (this.body.position.y < 0) this.body.position.y = 0;
 
     	// Handle input
     	if (game.keyboard.down('LEFT')) this.body.velocity.x = -this.speed;
     	else if (game.keyboard.down('RIGHT')) this.body.velocity.x = this.speed;
     	else this.body.velocity.x = 0;
+        
+        if (game.keyboard.down('UP')) this.body.velocity.y = -this.speed;
+    	else if (game.keyboard.down('DOWN')) this.body.velocity.y = this.speed;
+    	else this.body.velocity.y = 0;
     }
 });
 
@@ -109,7 +116,6 @@ game.createClass('Bullet', 'Entity', {
 
 	initSprite: function(x, y) {
 		this.sprite = new game.SpriteSheet('laser-bolts.png', 5, 13).anim();
-        this.sprite.filters = [new game.PIXI.BlurFilter(10)];
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.position.set(x, y);
@@ -147,7 +153,7 @@ game.createClass('Enemy', 'Entity', {
 		var x = Math.random(16, game.system.width / 4 - 32);
 
 		this.sprite = new game.SpriteSheet('enemy-small.png', 16, 16).anim();
-        this.sprite.blendMode = 2;
+        this.sprite.blendMode = 0;
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, -this.sprite.height / 2);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
@@ -170,8 +176,8 @@ game.createClass('Enemy', 'Entity', {
     postReady: function() {
         console.log(this.cycle);
         this.mergeRandomBehaviour( this.cycle[0] );
-        game.scene.addTimer(1000, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
-        game.scene.addTimer(2000, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
+        game.scene.addTimer(1500, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
+        game.scene.addTimer(2500, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
     },
 
 	kill: function() {
@@ -209,7 +215,7 @@ game.createClass('Enemy', 'Entity', {
 game.createClass('Explosion', {
 	init: function(x, y) {
 		this.sprite = new game.SpriteSheet('explosion.png', 16, 16).anim();
-        this.sprite.blendMode = 2;
+        this.sprite.blendMode = 0;
 		this.sprite.animationSpeed = game.scene.animationSpeed * 4;
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, y),

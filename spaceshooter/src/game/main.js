@@ -26,20 +26,20 @@ game.createScene('Main', {
     	this.mainContainer = new game.Container().addTo(this.stage);
     	this.mainContainer.scale.set(4, 4);
 
-    	var bg = new game.TilingSprite('desert-backgorund-looped.png');
-    	bg.speed.y = 10;
+    	var bg = new game.TilingSprite('desert-backgorund-looped-2.png');
+    	bg.speed.y = 100;
     	bg.addTo(this.mainContainer);
     	this.addObject(bg);
         
         var bg = new game.TilingSprite('desert-backgorund-looped.png');
         bg.blendMode = 1;
-    	bg.speed.y = 20;
+    	bg.speed.y = 200;
     	bg.addTo(this.mainContainer);
     	this.addObject(bg);
 
     	this.player = new game.Player();
         game.scene.player = this.player;
-        this.message = new game.PIXI.Text("Wave Start!", { font: '60px Impact',fill: "#ff3366" , align: 'center'});
+        this.message = new game.PIXI.Text(" ⚠ Wave Start ⚠", { font: '60px Impact',fill: "#ff3366" , align: 'center'});
         this.message.x = game.system.width/2-this.message.width/2;
         this.message.y = game.system.height/2;
         this.message.alpha = 0;
@@ -49,11 +49,10 @@ game.createScene('Main', {
 
     },
 
-    spawnEnemy: function(c) {
+    spawnEnemy: function(x) {
 
-    	var enemy = new game.Enemy();
+    	var enemy = new game.Enemy(x);
         enemy.cycle = game.scene.cycle;
-        console.log("foo",c);
         enemy.postReady();
     },
     
@@ -72,8 +71,21 @@ game.createScene('Main', {
         console.log('started wave'); 
 
         this.addTimer(8000,this.stopWave.bind(this));
-
-        this.enemyTimer = this.addTimer(250, this.spawnEnemy.bind(this), true)
+        
+        var xCoords = [];
+        _.times(8,
+            function(){
+                var x = Math.random(16, game.system.width / 4 - 32);
+                xCoords.push(x);
+            }        
+        );
+        console.log(xCoords);
+        var foo = function(){ 
+            console.log("derp",xCoords[_.random(xCoords.length)]);
+            game.scene.spawnEnemy(xCoords[_.random(xCoords.length)]); 
+        };
+        this.repeatTimes(foo,250,20);
+        //this.enemyTimer = this.addTimer(250, this.spawnEnemy.bind(this), true)
     },
     
     stopWave: function() {

@@ -65,6 +65,7 @@ game.createClass('Player', 'Entity', {
 
     	var fire = new game.SpriteSheet('fire.png', 10, 9).anim();
     	fire.animationSpeed = game.scene.animationSpeed;
+        fire.blendMode = 4;
     	fire.play();
     	fire.anchor.set(0.5, 0);
     	fire.position.y = this.sprite.height / 2;
@@ -242,7 +243,7 @@ game.createClass('Enemy', 'Entity', {
 game.createClass('Explosion', {
 	init: function(x, y) {
 		this.sprite = new game.SpriteSheet('explosion.png', 16, 16).anim();
-        this.sprite.blendMode = 0;
+        this.sprite.blendMode = 1;
 		this.sprite.animationSpeed = game.scene.animationSpeed * 4;
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, y),

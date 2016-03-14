@@ -146,7 +146,15 @@ game.createClass('Bullet', 'Entity', {
 game.createClass('EnemyBullet', 'Bullet', {
 	collisionGroup: 3,
 	collideAgainst: 0,
-
+    
+	initSprite: function(x, y) {
+		this.sprite = new game.SpriteSheet('enemy-laser-bolts.png', 5, 13).anim();
+		this.sprite.anchor.set(0.5, 0.5);
+		this.sprite.animationSpeed = game.scene.animationSpeed;
+		this.sprite.position.set(x, y);
+		this.sprite.play();
+		this.sprite.addTo(game.scene.mainContainer);
+	},
 	ready: function() {
 		this.body.velocity.y = 700;
 		this.body.collide = this.collide.bind(this);
@@ -160,9 +168,9 @@ game.createClass('Enemy', 'Entity', {
     cycle: false,
     currentMove: false,
 
-	initSprite: function() {
+	initSprite: function(x) {
 		// Random start position
-		var x = Math.random(16, game.system.width / 4 - 32);
+		var x = x || game.system.width / 4 / 2;
 
 		this.sprite = new game.SpriteSheet('enemy-small.png', 16, 16).anim();
         this.sprite.blendMode = 0;

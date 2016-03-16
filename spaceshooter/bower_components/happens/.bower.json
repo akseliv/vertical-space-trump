@@ -1,0 +1,31 @@
+{
+  "name": "happens",
+  "main": "index.js",
+  "version": "0.6.0",
+  "homepage": "https://github.com/arboleya/happens",
+  "description": "Super simple and tiny javascript event system",
+  "keywords": [
+    "event"
+  ],
+  "authors": [
+    "Anderson Arboleya <anderson@arboleya.me>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "0.6.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.6.0",
+    "commit": "192f937ded87f56ffb010f2bc9dd90e217f776bb"
+  },
+  "_source": "git://github.com/arboleya/happens.git",
+  "_target": "~0.6.0",
+  "_originalSource": "happens",
+  "_direct": true
+}

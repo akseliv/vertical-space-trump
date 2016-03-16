@@ -53,12 +53,12 @@ game.createScene('Main', {
 
     	var enemy = new game.Enemy(x);
         enemy.cycle = game.scene.cycle;
-        enemy.sprite.tint = game.scene.tint || "0xFFFFFF";
+        enemy.sprite.tint = game.scene.tint;
         enemy.postReady();
     },
     
     preStartWave: function(){
-        game.scene.tint = game.PIXI.rgb2hex([_.random(120,255),_.random(120,255),_.random(120,255)]);
+        game.scene.tint = _.random(0.5,1.0) * 0xFFFFFF;
         console.log("prep wave start");
         game.scene.cycle = _.shuffle(_.range(game.movementComponents.length));
         game.Enemy.speed = game.Enemy.speed*1.2;

@@ -163,7 +163,7 @@ game.createClass('EnemyBullet', 'Bullet', {
 });
 
 game.createClass('Enemy', 'Entity', {
-	speed: 400,
+	speed: 100,
 	collisionGroup: 1,
     moves: [],
     cycle: false,
@@ -197,8 +197,8 @@ game.createClass('Enemy', 'Entity', {
     postReady: function() {
         console.log(this.cycle);
         this.mergeRandomBehaviour( this.cycle[0] );
-        game.scene.addTimer(1750, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
-        game.scene.addTimer(2750, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
+        game.scene.addTimer(2000, this.mergeRandomBehaviour.bind(this,this.cycle[1]));
+        game.scene.addTimer(4000, this.mergeRandomBehaviour.bind(this,this.cycle[2]));
         this.shootTimer = game.scene.addTimer(2000, this.shoot.bind(this),true);
     },
 

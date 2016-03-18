@@ -51,17 +51,19 @@ game.createScene('Main', {
 
     spawnEnemy: function(x) {
 
-    	var enemy = new game.Enemy(x);
+    	var enemy = new game.Enemy(x,null,game.scene.enemyScale);
         enemy.cycle = game.scene.cycle;
         enemy.sprite.tint = game.scene.tint;
+        enemy.speed = 1/game.scene.enemyScale;
         enemy.postReady();
     },
     
     preStartWave: function(){
+        game.scene.enemyScale = _.random(1.0,2.0);
         game.scene.tint = _.random(0.5,1.0) * 0xFFFFFF;
         console.log("prep wave start");
         game.scene.cycle = _.shuffle(_.range(game.movementComponents.length));
-        game.Enemy.speed = game.Enemy.speed*1.2;
+        game.Enemy.speed = game.Enemy.speed;
         this.spawnEnemy();
         this.addTimer(4000,this.startWave.bind(this));
         var foo = function(){ game.scene.message.alpha ^= 1};

@@ -7,8 +7,8 @@ game.module(
 game.createClass('Entity', {
 	collideAgainst: [],
 
-	init: function(x, y) {
-		this.initSprite(x, y);
+	init: function(x, y, scale) {
+		this.initSprite(x, y, scale);
 		this.initBody();
 		this.ready();
 		game.scene.addObject(this);
@@ -147,9 +147,13 @@ game.createClass('Bullet', 'Entity', {
 game.createClass('EnemyBullet', 'Bullet', {
 	collisionGroup: 3,
 	collideAgainst: 0,
-    
-	initSprite: function(x, y) {
+    speed: 1000,
+	initSprite: function(x, y, scale) {
+        console.log(scale);
+        var scale = scale || 1.0;
+        this.speed = this.speed / scale;
 		this.sprite = new game.SpriteSheet('enemy-laser-bolts.png', 5, 13).anim();
+        this.sprite.scale.set(scale,scale);
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
 		this.sprite.position.set(x, y);
@@ -157,7 +161,7 @@ game.createClass('EnemyBullet', 'Bullet', {
 		this.sprite.addTo(game.scene.mainContainer);
 	},
 	ready: function() {
-		this.body.velocity.y = 700;
+		this.body.velocity.y = this.speed;
 		this.body.collide = this.collide.bind(this);
 	}
 });
@@ -169,12 +173,13 @@ game.createClass('Enemy', 'Entity', {
     cycle: false,
     currentMove: false,
 
-	initSprite: function(x) {
+	initSprite: function(x,y,scale) {
 		// Random start position
 		var x = x || game.system.width / 4 / 2;
-
+        this.spriteScale = scale || 1.0;
 		this.sprite = new game.SpriteSheet('enemy-small.png', 16, 16).anim();
         this.sprite.blendMode = 0;
+        this.sprite.scale.set(this.spriteScale,this.spriteScale);
 		this.sprite.anchor.set(0.5, 0.5);
 		this.sprite.position.set(x, -this.sprite.height / 2);
 		this.sprite.animationSpeed = game.scene.animationSpeed;
@@ -224,7 +229,7 @@ game.createClass('Enemy', 'Entity', {
     
     shoot: function() {
         console.log('shoot');
-        var bullet = new game.EnemyBullet(this.sprite.position.x, this.sprite.position.y);
+        var bullet = new game.EnemyBullet(this.sprite.position.x, this.sprite.position.y, this.spriteScale);
     },
     
     mergeRandomBehaviour: function(cycle){

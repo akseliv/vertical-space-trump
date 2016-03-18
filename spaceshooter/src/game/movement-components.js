@@ -32,7 +32,6 @@ game.module(
     
     game.BasicMovement3 = {
         init: function init() {
-            this.body.velocity.y = 0;
             this.body.velocity.x = _.shuffle([-200,200])[0];
         },       
         move: function move() {
@@ -47,7 +46,6 @@ game.module(
     game.BasicMovement4 = {
         init: function init() {
 
-            this.body.velocity.y = 0;
             this.body.velocity.x = -400;
             game.scene.addTimer(250, 
                     this.bark.bind(this)
